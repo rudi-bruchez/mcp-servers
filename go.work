@@ -1,6 +1,7 @@
 go 1.23.0
 
 use (
+    .
     ./cmd/big-rewrite
     ./cmd/multi-api
     ./cmd/local-llm

@@ -1,81 +1,77 @@
 # Claude MCP Servers (Go)
 
-[![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?style=flat&logo=go)](https://go.dev/)
+[![Go Version](https://img.shields.io/badge/Go-1.23+-00ADD8?style=flat&logo=go)](https://go.dev/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Tests](https://github.com/yourusername/claude-mcp-servers-go/workflows/Test/badge.svg)](https://github.com/yourusername/claude-mcp-servers-go/actions)
 
-Collection de serveurs MCP en Go pour optimiser et étendre Claude Code.
+Collection of MCP servers in Go to extend Claude Code's capabilities.
 
-## 🚀 Serveurs Disponibles
+## Available Servers
 
-| Serveur | Description | Économie | Documentation |
-|---------|-------------|----------|---------------|
-| [big-rewrite](cmd/big-rewrite) | One-shot file rewrites via API Claude | 60-80% tokens | [Docs](docs/servers/big-rewrite.md) |
-| [multi-api](cmd/multi-api) | Compare Claude/Gemini/OpenAI en parallèle | Meilleure qualité | [Docs](docs/servers/multi-api.md) |
-| [local-llm](cmd/local-llm) | Délégation à llama.cpp local | 70-90% tokens | [Docs](docs/servers/local-llm.md) |
-| [knowledge-base](cmd/knowledge-base) | RAG avec embeddings + FAISS | 90-95% tokens | [Docs](docs/servers/knowledge-base.md) |
-| [usage-tracker](cmd/usage-tracker) | Auto-analyse et optimisation coûts | Insights | [Docs](docs/servers/usage-tracker.md) |
+| Server | Description | Token Savings |
+|--------|-------------|---------------|
+| [big-rewrite](cmd/big-rewrite) | One-shot file rewrites via Claude API | 60-80% |
+| [multi-api](cmd/multi-api) | Parallel comparison across Claude/Gemini/OpenAI | Best quality |
+| [local-llm](cmd/local-llm) | Delegate to a local llama.cpp instance | 70-90% |
+| [knowledge-base](cmd/knowledge-base) | RAG with embeddings + FAISS vector search | 90-95% |
+| [usage-tracker](cmd/usage-tracker) | Real-time token tracking and cost analysis | Insights |
 
-## ⚡ Quick Start
+## Quick Start
+
 ```powershell
 # 1. Clone
-git clone https://github.com/yourusername/claude-mcp-servers-go
-cd claude-mcp-servers-go
+git clone https://github.com/rudi-bruchez/mcp-servers
+cd mcp-servers
 
-# 2. Build tous les serveurs
+# 2. Build all servers
 .\scripts\build-all.ps1
 
 # 3. Configure Claude Desktop
 .\scripts\setup-claude-desktop.ps1
 
-# 4. Redémarrer Claude Desktop
+# 4. Restart Claude Desktop
 ```
 
-## 📦 Installation Serveur Spécifique
+## Install a Single Server
+
 ```powershell
-# Build un seul serveur
-cd cmd\big-rewrite
-go build -o ..\..\bin\big-rewrite.exe
-
-# Ou avec le script
-.\scripts\build-all.ps1 -Server big-rewrite
+# Build one server manually
+go build -o bin/big-rewrite.exe ./cmd/big-rewrite
 ```
 
-## 🏗️ Architecture
+## Architecture
 
-Monorepo avec code partagé:
-- **cmd/**: Serveurs MCP (executables)
-- **pkg/**: Bibliothèques partagées (clients API, évaluateurs, etc.)
-- **docs/**: Documentation complète
-- **scripts/**: Utilitaires de build et configuration
+Monorepo with shared code:
 
-## 🔧 Prérequis
+- **cmd/**: MCP servers (executables), each with its own `go.mod`
+- **pkg/**: Shared libraries (API clients, token estimation, file utilities)
+- **docs/**: Documentation
+- **scripts/**: Build and configuration utilities
 
-- Go 1.21+
+The workspace is managed via `go.work`. Each server under `cmd/` is an independent Go module that references shared code from `pkg/` through the workspace.
+
+## Requirements
+
+- Go 1.23+
 - Claude Desktop
-- (Optionnel) llama.cpp pour local-llm
-- (Optionnel) FAISS pour knowledge-base
+- (Optional) llama.cpp for `local-llm`
+- (Optional) FAISS for `knowledge-base`
+- API keys: `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `OPENAI_API_KEY` (for `multi-api`)
 
-## 📖 Documentation
+## Documentation
 
 - [Architecture](docs/architecture.md)
-- [Guide de contribution](docs/contributing.md)
-- [Exemples d'utilisation](docs/examples/workflows.md)
+- [Contributing](docs/contributing.md)
 
-## 🤝 Contributing
+## Contributing
 
-Les contributions sont bienvenues! Voir [CONTRIBUTING.md](docs/contributing.md).
+Contributions are welcome! See [CONTRIBUTING.md](docs/contributing.md).
 
-## 📄 License
+## License
 
-MIT - Voir [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE)
 
-## 🙏 Remerciements
+## Acknowledgements
 
-- [MCP SDK Go](https://github.com/mark3labs/mcp-go)
+- [MCP Go SDK](https://github.com/modelcontextprotocol/go-sdk)
 - [Anthropic Claude](https://www.anthropic.com)
-- Communauté Go
-
----
-
-Créé avec ❤️ pour optimiser Claude Code
+- The Go community

@@ -33,7 +33,7 @@ go test -v -race ./pkg/...
 This is a **Go workspace monorepo** (`go.work`) where each server under `cmd/` is its own Go module with its own `go.mod`. The workspace allows them to share code from `pkg/` without publishing.
 
 Key modules:
-- Root module: `github.com/yourusername/claude-mcp-servers-go` (Go 1.23) — contains `pkg/`
+- Root module: `github.com/rudi-bruchez/mcp-servers` (Go 1.23.0) — contains `pkg/`, listed as `.` in `go.work`
 - Each `cmd/<server>/` is an independent module requiring `github.com/modelcontextprotocol/go-sdk v1.3.0`
 
 The broken imports in diagnostics are because `go.work.sum` and vendor directories are gitignored. Run `go work sync` or `go mod tidy` in each server directory to resolve.
@@ -104,12 +104,12 @@ This writes `claude_desktop_config.json` with executable paths and environment v
 2. Add the module to `go.work` under the `use` directive
 3. Follow the existing MCP server pattern from any existing `cmd/*/main.go`
 4. Run `go mod tidy` inside `cmd/<server-name>/` to generate `go.sum`
-5. Document in `docs/servers/` and update the root `README.md`
+5. Document in `docs/` and update the root `README.md`
 
 Minimal `go.mod` for a new server:
 
 ```
-module github.com/yourusername/claude-mcp-servers-go/cmd/<server-name>
+module github.com/rudi-bruchez/mcp-servers/cmd/<server-name>
 
 go 1.23.0
 
